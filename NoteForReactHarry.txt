@@ -1,0 +1,214 @@
+npm install -g create-react-app
+    to create the react app
+    node package manager stands for npm
+npx create-react-app jsp 
+    To create the react app 
+To Run react-app we have to install 2 libraries
+    React
+    ReactDOM
+npm start
+    To Start React App
+
+src is for the react, inside src we have to write the src, 
+
+npm install package_name 
+    to install the package.
+
+node_modules holds the packages, package.json holds the meta data about hte package or just the information about the package. public folder is used for the static files.
+
+why package.json?
+    if we are sharing our react project with someone we need not to share the node_modules, since it is very big file using package.json we can install the node.modules that is packages which are required,
+    node_modules is listed in git_ignore so that it is not pushed to the git
+
+ES-6 modules 
+    It is process exporting and importing the code
+    there are 2 types in export
+        1.named export:any number of objects can be exported, Have to be imported like: import {objecName} from "source"
+        2. default export: only one export for a file, how to import: import anyName from "source" 
+    we can use also alias
+    ex: import {component as alias_name} from "Source"
+    
+    how to export 
+    named export
+        export let c="rohan" (named export)
+        or export {c}
+    default export 
+        export default let c="hello"
+        or
+        export default c
+
+ReactDOM.render(<h1>Hello world</h1>, document.getElementById("root"))
+// render takes 3 arguments element, container, callback.
+
+jsx fragment 
+    A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.
+    <> content </>
+
+react props
+    Props are arguments passed into React components. Props are passed to components via HTML attributes.
+    props stands for properties.
+how to create props 
+    in function of the component you will have to pass props
+    in JSx pass    {props.title}
+    in App.js     <Navbar title="TextUtils" about="About us" />
+
+prop types  
+    PropTypes exports a range of validators that can be used to make sure the data you receive is valid. 
+    here we will be writing types of the props to be passed. 
+how to write PropType?
+    import PropTypes from 'prop-types'
+    Navbar.prototype = {
+    title : PropTypes.string.isRequired, (isRequired to make it mandatory field)
+    about : PropTypes.string
+}
+what is default props?
+    default props is the props that will be passed if none of the props is passed
+    ex:
+        Navbar.defaultProps={
+    title:'Set title here',
+    about: 'About text here'
+    }
+
+what is State?
+    State of a component is an object that holds some information that may change over the lifetime of the component.
+In class function based component we have to use the useState hook to achieve state, by default we will not get state like we get it in class based component 
+ex: for useState in functional based component
+    import React, {useState} from 'react';
+    const Textform = (props) => {
+        const [text, setText]=useState("Enter your text")
+        return ()
+    }
+ex: for state in class based component
+    refer class notes of JSP
+
+How to write JS code in JSX?
+    ex: style={props.mode==='dark'? {backgroundColor:'grey'}:{backgroundColor:'white'}} 
+    if you want to write the JS code first you have to place a courly braces. {}, if you want to pass object inside the you to put the one more courly braces{}
+    ex:2, {`form-control text-${props.mode==='dark'? 'white':'dark'}`
+    Here the reason you inside braces you have JS string reason to use backTick ` to make use of the ${Here we can write the variables and functions and etc}
+
+We can change the favicon and page title in public>index.html
+
+React Routers
+    React Router is a standard library for routing in React. It enables the navigation among views of various components in a React Application, allows changing the browser URL, and keeps the UI in sync with the URL
+    using router we can navigate to other pages without reload
+    we have to manually install the router package using command "npm install react-router-dom"
+    we can check the router quick start guide 
+    first we imported as mentioned in  quick start guide, 
+    got some issues since there are changes in V5 and V6 fixed though, we have to mention even navbar inside the router tag other router will not know if we use Link tag in Navbar component
+    if you are using react router, you will have to change the anchor tag to Link and href to 'to' else page will reload while routing, you need to import Link from "react-router-dom" before use,
+ex:
+    import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import {Link} from 'react-router-dom' in navbar or wherever you use Link
+    <Router>
+    <Routes>
+      <Route path='/' element={<Textform heading="Enter your text to analyze" mode={mode} showAlert={showAlert} />}>
+      </Route>
+      <Route path='/about' element={  <About mode={mode} />}>
+      </Route>
+    </Routes>
+    </Router>
+
+npm run build 
+    if we ran this command we will get a new folder inside which all your files copy will be there, it works same as like your project, it will be static. which is used to deploy on the hosting accounts.
+
+To host the react project in git hub we have seperate steps, we can follow the documentation
+
+we can get rid of the layout shift or (CLS cumilative layout shift) by giving some height, 
+
+componentDidMount() method  
+    The componentDidMount() method allows us to execute the React code when the component is already placed in the DOM (Document Object Model). This method is called during the Mounting phase of the React Life-cycle i.e after the component is rendered
+    it will be executed after the render method
+
+why should we pass key as props?
+ we pass key so that react can understand it is not same, and to reload or re mount
+    You may know that React's key prop is something you need to put on elements when you map over an array (otherwise React will get mad at you). ... This allows you to return the exact same element type, but force React to unmount the previous instance, and mount a new one.
+ex: <Route exact path='/general' element={<News key='general' pageSize={6} country='in' category='general' showAlert=   {News} />}>
+
+React Component Lifecycle
+    • The series of events that happen from the mounting of a React component to itsUnmounting.
+    Mounting - Birth of your component
+    Update - Growth of your component
+    Unmount - Death of your component
+
+Methods in React Component Lifecycle
+    this is only for the class based component.
+    • The render() method is used to render HTML of the component in react. This method is required for a class based component to render the DOM. It runs during the mounting and updating of your component. Render() method should be pure le you cannot modify state inside it!
+
+    The componentDidUpdate() method runs after the component output has been rendered to the DOM.
+
+    The componentDidUpdate() method is invoked as soon as the updating happens. The most common use case for the component DidUpdate() method is updating the DOM in response to prop or state changes.
+
+    • The componentWillUnmount() lifecycle method is called just before the component is unmounted and destroyed. Usually used to perform cleanups
+
+    *** Refer this diagram to understand methods properly https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+
+InfiniteScroll
+    It will help us to scroll automatically, and to get rid off the next and previous buttons
+    steps to use:
+    1.first install the package using "npm i react-infinite-scroll-component"
+    2.import InfiniteScroll from 'react-infinite-scroll-component';
+    3.<InfiniteScroll
+        dataLength={this.state.articles.length }    //max length
+        next={this.updateNews}          // function to load 
+        hasMore={this.state.articles.length+this.props.pageSize !== this.state.totalResults} // end condition
+        loader={<Loading/>}
+        >
+      statements
+    </InfiniteScroll>
+
+
+React top loading bar 
+    it is used to show the loading progress. 
+    steps to use:
+    1.    npm install react-top-loading-bar
+    2.     import LoadingBar from 'react-top-loading-bar'
+    3.     setProgress=(prgrs)=>{
+                    this.setState({progress:prgrs})
+                }
+
+                render() {
+                    return (
+                    <div>
+                        <Router>
+                        <LoadingBar
+                        color='#f11946'
+                        progress={this.state.progress}
+                        onLoaderFinished={() => setProgress(0)}
+                    />          
+    4.  <News setProgress={this.setProgress}  
+    5. call a function using prop     this.props.setProgress(50)
+    6. you can also change height, color, speed. refer the documentation
+
+.env.local file 
+    environment file or just env is a file holds variables and some sensitive data about your app.12-Feb-2021
+        
+    1.first create .env.local file in  react project folder, .env.local file are created where node_modules and public folders are created.
+    2. inside that name a file environmental variable and it should start from REACT_APP
+        ex: REACT_APP_NEWS_API_KEY='8fbaee1182334a5db6c737cc44b9b383'
+    3. use the environmental variable using process.env.variableName
+        ex  api=process.env.REACT_APP_NEWS_API_KEY
+    4. React read/creates env when is built so you need to npm run start every time you modify the . env file so the variables get updated.
+ 
+
+What are React Hooks?
+    • Features of Class based components in function based components
+    It allows you to use state and other React features without writing a class.
+    Hooks are the functions which "hook into" React state and lifecycle features from function components
+
+
+
+
+__________________________________________________________________________________________
+
+setTimeOut using this method we can perform any action after particular time
+setTimeInterval using we can repeat any task for mentioned time frame
+
+
+always we have to mention the unique key for the map function, otherwise we will get error which say as "each child in an element should have the unique key word"
+
+async, await
